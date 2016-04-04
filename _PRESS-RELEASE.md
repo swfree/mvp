@@ -16,6 +16,19 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
+ Sublime Adventures
+ A classic sidescrolling platform game controlled by Sublime Text shortcuts, for coders looking to speed up their Sublime workflow.
+
+ Sublime Adventures is a game for practicing Sublime Text shortcuts. With today's variety of text editors, there's no time to memorize all the shortcuts available. Sublime Adventures helps you work on your typing muscle memory in a format that abstracts away the tedium of learning shortcuts into a classic sidescroller. 
+
+ As your famed head of sales says, "You're gonna like the way you type. I guarantee it."
+
+ Navigate in your browser to www.sublime-adventures.com to start from level 1.
+
+ Customers loves us! MB from Illinois says, "I improved my speed 500%. Thanks Sublime Adventures!"
+
+ Head over to www.sublime-adventures.com to level up your workflow today!
+
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
