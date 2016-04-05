@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Sublime Adventures</title>
+  <link rel="stylesheet" type="text/css" href="styles/styles.css">
   <script src="//cdn.jsdelivr.net/phaser/2.4.6/phaser.min.js"></script>
   <script type="text/javascript" src="app/Boot.js"></script>
   <script type="text/javascript" src="app/Preloader.js"></script>
@@ -19,7 +20,7 @@
     // TODO: choose preference for onload: requireJS load, anonymous function, jQuery dom ready? 
     window.onload = function() {
       /* Create phaser game and inject into gameContainer div: */
-      var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'gameContainer');
+      var game = new Phaser.Game(1240, 640, Phaser.AUTO, 'gameContainer');
 
       // TODO: move game states into Boot ??? better practice
       /* Add game States: */

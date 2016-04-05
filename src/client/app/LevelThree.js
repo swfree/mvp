@@ -58,17 +58,13 @@ SublimeGame.LevelThree.prototype = {
     this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
     /* Load finish line */
-    this.diamond = this.game.add.sprite(this.game.world.width-30, this.game.world.height-175, 'playButton');
+    this.diamond = this.game.add.sprite(this.game.world.width-30, this.game.world.height-175, 'diamond');
     this.game.physics.arcade.enable(this.diamond);
     this.diamond.body.gravity.y = 300;
     this.diamond.body.collideWorldBounds = true;
 
     /* Create instructions menu */
-    this.instructions = this.game.add.sprite(300, 150, 'instructions');
-    this.instructions.alpha = 0.5;
-
-    /* Debounce instructions menu */
-    this.debouncedToggleInstructions = this.debounce(this.toggleInstructions, 1000);
+    this.addText();
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
@@ -141,23 +137,33 @@ SublimeGame.LevelThree.prototype = {
     this.keys[e.which] = false;
   },
 
-  debounce: function(func, wait, immediate) {
-    var timeout;
-    return function() {
-      var context = this, args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
+  toggleInstructions: function() {
+    if (this.levelInstructions) {
+      this.removeText();
+    } else {
+      this.addText();
+    }
   },
 
-  toggleInstructions: function() {
-    this.instructions.alpha = this.instructions.alpha === 0.5 ? 0 : 0.5;
+  addText: function() {
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Instructions:\nMoveleft\nMoveright');
+     // Center align
+    this.levelInstructions.anchor.set(0.5);
+    this.levelInstructions.align = 'center';
+
+    //  Font style
+    this.levelInstructions.font = 'Arial Black';
+    this.levelInstructions.fontSize = 20;
+    this.levelInstructions.fontWeight = 'bold';
+
+    //  Stroke color and thickness
+    this.levelInstructions.stroke = '#000000';
+    this.levelInstructions.strokeThickness = 6;
+    this.levelInstructions.fill = '#43d637';
+  },
+
+  removeText: function() {
+    this.levelInstructions.destroy();
   },
 
   quitGame: function(pointer) {
