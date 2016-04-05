@@ -168,7 +168,7 @@ SublimeGame.LevelThree.prototype = {
 
   quitGame: function(pointer) {
     // TODO:some cool animation to blow up the diamond you bumped into
-    this.state.start('MainMenu'); // congratulations screen
+    this.state.start('LevelFour'); // congratulations screen
   }
 
 };

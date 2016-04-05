@@ -65,13 +65,17 @@ SublimeGame.LevelOne.prototype = {
     /* Load box obstacles */
     this.boxes = this.add.group();
     this.boxes.enableBody = true;
-    this.box1 = this.boxes.create(300, this.game.world.height - 100, 'box');
+    this.box1 = this.boxes.create(300, this.game.world.height - 96, 'box');
+    this.box1.scale.setTo(0.3,0.3);
     this.box1.body.immovable = true;
-    this.box2 = this.boxes.create(450, this.game.world.height - 100, 'box');
+    this.box2 = this.boxes.create(450, this.game.world.height - 96, 'box');
+    this.box2.scale.setTo(0.3,0.3);
     this.box2.body.immovable = true;
-    this.box3 = this.boxes.create(490, this.game.world.height - 100, 'box');
+    this.box3 = this.boxes.create(487, this.game.world.height - 96, 'box');
+    this.box3.scale.setTo(0.3,0.3);
     this.box3.body.immovable = true;
-    this.box4 = this.boxes.create(490, this.game.world.height - 140, 'box');
+    this.box4 = this.boxes.create(487, this.game.world.height - 133, 'box');
+    this.box4.scale.setTo(0.3,0.3);
     this.box4.body.immovable = true;
 
     /* Load finish line */
