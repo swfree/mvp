@@ -29,12 +29,14 @@ SublimeGame.LevelOne = function(game) {
   this.prevX;
   this.prevY;
   this.keys = {};
+  this.instructions;
 };
 
 SublimeGame.LevelOne.prototype = {
   create: function() {
     this.world.setBounds(0, 0, 2000, 600);
     this.physics.startSystem(Phaser.Physics.ARCADE);
+
 
     /* Create platforms */
     this.platforms = this.add.group();
@@ -78,14 +80,14 @@ SublimeGame.LevelOne.prototype = {
     this.diamond.body.gravity.y = 300;
     this.diamond.body.collideWorldBounds = true;
 
+    this.instructions = this.game.add.sprite(300, 150, 'instructions');
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
 
     /* Implement keyboard controls */
     this.cursors = this.game.input.keyboard.createCursorKeys();
-    // this.downPlatform = this.game.input.keyboard.createCursorKeys;
-    // this.upPlatform = this.game.input.keyboard.addKey(221);
+    this.spacebar = this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     document.addEventListener('keydown', this.onKeyDown.bind(this));
     document.addEventListener('keyup', this.onKeyUp.bind(this));
   },
@@ -132,6 +134,10 @@ SublimeGame.LevelOne.prototype = {
       this.player.animations.stop();
       this.player.frame = 4;
     }
+
+    if (this.spacebar.isDown) { // if CMD K > CMD B are pressed
+      this.toggleInstructions(); // debounce
+    }
   },
 
   onKeyDown: function(e) {
@@ -142,6 +148,10 @@ SublimeGame.LevelOne.prototype = {
   onKeyUp: function(e) {
     e.preventDefault();
     this.keys[e.which] = false;
+  },
+
+  toggleInstructions: function() {
+    this.instructions.visible = this.instructions.visible ? false : true;
   },
 
   quitGame: function(pointer) {

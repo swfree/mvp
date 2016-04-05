@@ -18,6 +18,8 @@ SublimeGame.Preloader.prototype = {
     // TODO: set dudes starting size/position myself:
     this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
     this.load.image('box', 'assets/firstaid.png');
+
+    this.load.image('instructions', 'assets/main_menu.png');
   },
 
   create: function() {
