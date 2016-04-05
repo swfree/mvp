@@ -48,56 +48,15 @@ SublimeGame.LevelTwo.prototype = {
     this.floatingLedge.scale.setTo(0.5, 0.5);
     this.floatingLedge.body.immovable = true;
 
-    // /* START STUCK PLAYER */
-    // // INSIDE CREATE:
-    // game.physics.arcade.enable(this);
-    // this.anchor.x = 0.5;
-    // this.body.customSeparateX = true;
-    // this.body.customSeparateY = true;
-    // this.body.allowGravity = false;
-    // this.body.immovable = true;
-    // this.playerLocked = false;
-
-    // // INSIDE UPDATE:
-    // this.physics.arcade.collide(this.player, this.clouds, this.customSep, null, this);
-    // //  Do this AFTER the collide check, or we won't have blocked/touching set
-    // var standing = this.player.body.blocked.down || this.player.body.touching.down || this.locked;
-    // if (this.locked) {
-    //   this.checkLock();
-    // }
-    // customSep: function (player, platform) {
-    //   if (!this.locked && player.body.velocity.y > 0) {
-    //     this.locked = true;
-    //     this.lockedTo = platform;
-    //     platform.playerLocked = true;
-
-    //     player.body.velocity.y = 0;
-    //   }
-    // },
-
-    // checkLock: function () {
-    //   this.player.body.velocity.y = 0;
-    //   //  If the player has walked off either side of the platform then they're no longer locked to it
-    //   if (this.player.body.right < this.lockedTo.body.x || this.player.body.x > this.lockedTo.body.right) {
-    //     this.cancelLock();
-    //   }
-    // },
-
-    // cancelLock: function () {
-    //   this.wasLocked = true;
-    //   this.locked = false;
-    // },
-    // /* END STUCK PLAYER */
-
-    this.fixedLedge = this.platforms.create(480, this.game.world.height - 64, 'ground');
+    this.fixedLedge = this.platforms.create(480, this.game.world.height - 200, 'ground');
     this.fixedLedge.scale.setTo(0.8, 2);
     this.fixedLedge.body.immovable = true;
 
-    this.sidewaysLedge = this.platforms.create(800, this.game.world.height - 64, 'sideways');
+    this.sidewaysLedge = this.platforms.create(800, this.game.world.height - 200, 'sideways');
     this.sidewaysLedge.scale.setTo(0.5, 0.5);
     this.sidewaysLedge.body.immovable = true;
 
-    this.fixedLedge = this.platforms.create(this.game.world.width - 100, this.game.world.height - 64, 'ground');
+    this.fixedLedge = this.platforms.create(this.game.world.width - 100, this.game.world.height - 200, 'ground');
     this.fixedLedge.scale.setTo(0.5, 2);
     this.fixedLedge.body.immovable = true;
 
@@ -111,7 +70,7 @@ SublimeGame.LevelTwo.prototype = {
     this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
     /* Load finish line */
-    this.diamond = this.game.add.sprite(this.game.world.width-100, this.game.world.height-175, 'diamond');
+    this.diamond = this.game.add.sprite(this.game.world.width-100, this.game.world.height-250, 'diamond');
     this.game.physics.arcade.enable(this.diamond);
     this.diamond.body.gravity.y = 300;
     this.diamond.body.collideWorldBounds = true;
@@ -141,14 +100,28 @@ SublimeGame.LevelTwo.prototype = {
 
     /* Sidways platform movement */
     if (this.keys[219] && this.keys[91]) { // CMD + [
-      // move sidewaysLedge platform left 
+      /* check if player is on platform */
+      var playerX = this.player.body.position.x;
       this.prevX = this.sidewaysLedge.body.position.x;
+      
+      if (playerX > this.prevX && playerX < this.prevX+200) {
+        this.player.body.position.x = playerX - 20;
+      }
+
+      // move sidewaysLedge platform left 
       this.sidewaysLedge.body.position.x = this.prevX - 20;
       this.keys[219] = false; 
       // this.keys[91] = false;
     } else if (this.keys[221] && this.keys[91]) { // CMD + ]
-      // move sidewaysLedge platform right
+      /* check if player is on platform */
+      var playerX = this.player.body.position.x;
       this.prevX = this.sidewaysLedge.body.position.x;
+
+      if (playerX > this.prevX && playerX < this.prevX+200) {
+        this.player.body.position.x = playerX + 20;
+      }
+
+      // move sidewaysLedge platform right
       this.sidewaysLedge.body.position.x = this.prevX + 20;
       this.keys[221] = false;
       // this.keys[91] = false;
@@ -156,9 +129,17 @@ SublimeGame.LevelTwo.prototype = {
 
     /* Up/downplatform movement */
     else if (this.keys[91] && this.keys[17] && this.keys[38]) { //CMD + CTL + up arrows
+      /* check if player is on platform */
+      var playerX = this.player.body.position.x;
+      var playerY = this.player.body.position.y;
+      if (playerX > 280 && playerX < 480) {
+        this.player.body.gravity.y = 0;
+        this.player.body.position.y = playerY - 20;
+      }
       /* Move platform up */
       this.prevY = this.floatingLedge.body.position.y;
       this.floatingLedge.body.position.y = this.prevY - 20;
+      this.player.body.gravity.y = 300;
       // this.keys[91] = false;
       // this.keys[17] = false;
       this.keys[38] = false;
