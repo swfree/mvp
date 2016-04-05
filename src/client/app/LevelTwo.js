@@ -78,6 +78,8 @@ SublimeGame.LevelTwo.prototype = {
     /* Create instructions menu */
     this.addText();
     this.addRestart();
+    this.addTimer();
+    
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
@@ -215,6 +217,7 @@ SublimeGame.LevelTwo.prototype = {
   },
 
   restartLevel: function() {
+    clearInterval(this.interval);
     this.state.start('LevelTwo');
   },
 
@@ -233,6 +236,21 @@ SublimeGame.LevelTwo.prototype = {
     this.levelInstructions.stroke = '#000000';
     this.levelInstructions.strokeThickness = 6;
     this.levelInstructions.fill = '#43d637';
+  },
+
+  addTimer: function() {
+    this.counter = 0;
+    this.timer = this.game.add.text(this.game.world.width-230, 65, "Seconds Elapsed: " + this.counter, { 
+      font: "15px Arial Black", 
+      fontWeight: "bold", 
+      fill: "#43d637", 
+    });
+    this.interval = setInterval(this.updateTimer.bind(this), 1000);
+  },
+
+  updateTimer: function() {
+    this.counter++;
+    this.timer.text = "Seconds Elapsed: " + this.counter;
   },
 
   quitGame: function(pointer) {
