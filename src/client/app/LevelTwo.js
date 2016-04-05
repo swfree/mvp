@@ -183,10 +183,10 @@ SublimeGame.LevelTwo.prototype = {
   },
 
   toggleInstructions: function() {
-    if (this.levelInstructions) {
-      this.removeText();
+    if (this.levelInstructions.visible) {
+      this.levelInstructions.visible = false;
     } else {
-      this.addText();
+      this.levelInstructions.visible = true;
     }
   },
 
@@ -205,10 +205,6 @@ SublimeGame.LevelTwo.prototype = {
     this.levelInstructions.stroke = '#000000';
     this.levelInstructions.strokeThickness = 6;
     this.levelInstructions.fill = '#43d637';
-  },
-
-  removeText: function() {
-    this.levelInstructions.destroy();
   },
 
   quitGame: function(pointer) {

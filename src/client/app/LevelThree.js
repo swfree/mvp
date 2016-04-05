@@ -34,28 +34,34 @@ SublimeGame.LevelThree = function(game) {
 
 SublimeGame.LevelThree.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 800, 600);
+    this.world.setBounds(0, 0, 1000, 600);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     /* Create platforms */
     this.platforms = this.add.group();
     this.platforms.enableBody = true;
     this.ground = this.platforms.create(0, this.game.world.height - 64, 'ground');
-    this.ground.scale.setTo(2.5, 2);
+    this.ground.scale.setTo(3, 2);
     this.ground.body.immovable = true;
 
+    /* Create wall */
     this.wall = this.platforms.create(this.game.world.centerX + 95, 400, 'ground');
     this.wall.scale.setTo(0.1, 6);
     this.wall.body.immovable = true;
 
     /* Create player */
-    this.player = this.game.add.sprite(32, this.game.world.height - 150, 'dude');
+    this.player = this.game.add.sprite(125, this.game.world.height - 150, 'dude');
     this.game.physics.arcade.enable(this.player);
     this.player.body.bounce.y = 0.2; //FIX: reduce bounce
     this.player.body.gravity.y = 300;
     this.player.body.collideWorldBounds = true;
     this.player.animations.add('left', [0, 1, 2, 3], 10, true);
     this.player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+    /* Load 1 transparent pane */
+    this.outline1 = this.game.add.sprite(75, 360, 'ground');
+    this.outline1.scale.setTo(2.7, 6);
+    this.outline1.alpha = 0.3;
 
     /* Load finish line */
     this.diamond = this.game.add.sprite(this.game.world.width-30, this.game.world.height-175, 'diamond');
@@ -86,21 +92,26 @@ SublimeGame.LevelThree.prototype = {
     /* on each update, resets player velocity to 0 */
     this.player.body.velocity.x = 0;
 
-    /* Setup single key player movement */
     if (this.keys[91] && this.keys[18] && this.keys[50]) { // split pane: CMD[91] OPT[18] 2[50]
       this.keys[91] = false;
       this.keys[18] = false;
       this.keys[50] = false;
-      // split pane
-      // TODO: start with this outline over whole game
-      // when these keys are pressed, split outline into 2... with different outlines highlighted
-      this.outline1 = this.game.add.sprite(100, 350, 'ground');
-      this.outline1.scale.setTo(2, 5);
-      this.outline1.alpha = 0.3;
+
+      this.outline1.destroy();
+
+      this.outline2 = this.game.add.sprite(75, 360, 'ground');
+      this.outline2.scale.setTo(1, 6);
+      this.outline2.alpha = 0.3;
+
+      this.outline3 = this.game.add.sprite(760, 360, 'ground');
+      this.outline3.scale.setTo(1, 6);
+      this.outline3.alpha = 0.3;
+
     } else if (this.keys[17] && this.keys[16] && this.keys[50]) { // move pane focus CTR[17] SH[16] 2[50]
       // move player to other pane
-      this.prevX = this.player.body.position.x;
-      this.player.body.position.x = this.prevX + 60;
+      if (this.outline2 && this.outline3) {
+        this.player.body.position.x = 775;
+      }
     } else if (this.cursors.left.isDown) {
       /* Moves left */
       this.player.body.velocity.x = -150;
@@ -138,10 +149,10 @@ SublimeGame.LevelThree.prototype = {
   },
 
   toggleInstructions: function() {
-    if (this.levelInstructions) {
-      this.removeText();
+    if (this.levelInstructions.visible) {
+      this.levelInstructions.visible = false;
     } else {
-      this.addText();
+      this.levelInstructions.visible = true;
     }
   },
 
@@ -160,10 +171,6 @@ SublimeGame.LevelThree.prototype = {
     this.levelInstructions.stroke = '#000000';
     this.levelInstructions.strokeThickness = 6;
     this.levelInstructions.fill = '#43d637';
-  },
-
-  removeText: function() {
-    this.levelInstructions.destroy();
   },
 
   quitGame: function(pointer) {

@@ -142,12 +142,14 @@ SublimeGame.LevelOne.prototype = {
 
     /* Toggle instructions menu */
     if (this.keys[91] && this.keys[75]) { // if CMD K > CMD B are pressed
-      this.keys[91] = false;
-      this.keys[75] = false;
+      // this.keys[91] = false;
+      // this.keys[75] = false;
       if (this.keys[66]) {
-        this.keys[91] = false;
+        // this.keys[91] = false;
         this.keys[66] = false;
+        this.keys[75] = false;
         this.toggleInstructions(); // debounce
+        console.log('toggle instructions');
       }
     }
   },
@@ -163,10 +165,10 @@ SublimeGame.LevelOne.prototype = {
   },
 
   toggleInstructions: function() {
-    if (this.levelInstructions) {
-      this.removeText();
+    if (this.levelInstructions.visible) {
+      this.levelInstructions.visible = false;
     } else {
-      this.addText();
+      this.levelInstructions.visible = true;
     }
   },
 
@@ -185,10 +187,6 @@ SublimeGame.LevelOne.prototype = {
     this.levelInstructions.stroke = '#000000';
     this.levelInstructions.strokeThickness = 6;
     this.levelInstructions.fill = '#43d637';
-  },
-
-  removeText: function() {
-    this.levelInstructions.destroy();
   },
 
   quitGame: function(pointer) {

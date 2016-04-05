@@ -239,10 +239,10 @@ SublimeGame.LevelFour.prototype = {
   },
 
   toggleInstructions: function() {
-    if (this.levelInstructions) {
-      this.removeText();
+    if (this.levelInstructions.visible) {
+      this.levelInstructions.visible = false;
     } else {
-      this.addText();
+      this.levelInstructions.visible = true;
     }
   },
 
@@ -263,13 +263,8 @@ SublimeGame.LevelFour.prototype = {
     this.levelInstructions.fill = '#43d637';
   },
 
-  removeText: function() {
-    this.levelInstructions.destroy();
-  },
-
   quitGame: function(pointer) {
     // TODO:some cool animation to blow up the diamond you bumped into
     this.state.start('MainMenu'); // congratulations screen
   }
-
 };
