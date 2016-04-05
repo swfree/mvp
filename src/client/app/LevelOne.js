@@ -86,6 +86,7 @@ SublimeGame.LevelOne.prototype = {
 
     /* Create instructions menu */
     this.addText();
+    this.addRestart();
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
@@ -172,9 +173,27 @@ SublimeGame.LevelOne.prototype = {
     }
   },
 
+  addRestart: function() {
+    this.restart = this.game.add.text(this.game.world.width-230, 40, "RESTART LEVEL", { 
+      font: "15px Arial Black", 
+      fontWeight: "bold", 
+      fill: "#43d637", 
+      stroke: "#000000", 
+      strokeThickness: "6", 
+      align: "center" 
+    });
+
+    this.restart.inputEnabled = true;
+    this.restart.events.onInputDown.add(this.restartLevel, this);
+  },
+
+  restartLevel: function() {
+    this.state.start('LevelOne');
+  },
+
   addText: function() {
     this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Level 1:\nArrows\nOPT + Arrows');
-     // Center align
+    // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';
 
