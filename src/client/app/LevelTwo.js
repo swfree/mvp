@@ -29,11 +29,12 @@ SublimeGame.LevelTwo = function(game) {
   this.prevX;
   this.prevY;
   this.keys = {};
+  this.instructions;
 };
 
 SublimeGame.LevelTwo.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 1000, 600);
+    this.world.setBounds(0, 0, 1500, 600);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     /* Create platforms */
@@ -47,7 +48,14 @@ SublimeGame.LevelTwo.prototype = {
     this.floatingLedge.scale.setTo(0.5, 0.5);
     this.floatingLedge.body.immovable = true;
 
-    this.fixedLedge = this.platforms.create(600, this.game.world.height - 32, 'ground');
+    this.fixedLedge = this.platforms.create(600, this.game.world.height - 40, 'ground');
+    this.fixedLedge.body.immovable = true;
+
+    this.sidewaysLedge = this.platforms.create(1000, this.game.world.height - 40, 'ground');
+    this.sidewaysLedge.scale.setTo(0.5, 0.5);
+    this.sidewaysLedge.body.immovable = true;
+
+    this.fixedLedge = this.platforms.create(this.game.world.width - 100, this.game.world.height - 40, 'ground');
     this.fixedLedge.body.immovable = true;
 
     /* Create player */
@@ -60,18 +68,23 @@ SublimeGame.LevelTwo.prototype = {
     this.player.animations.add('right', [5, 6, 7, 8], 10, true);
 
     /* Load finish line */
-    this.diamond = this.game.add.sprite(this.game.world.width-100, this.game.world.height-150, 'playButton');
+    this.diamond = this.game.add.sprite(this.game.world.width-100, this.game.world.height-175, 'playButton');
     this.game.physics.arcade.enable(this.diamond);
     this.diamond.body.gravity.y = 300;
     this.diamond.body.collideWorldBounds = true;
+
+    /* Create instructions menu */
+    this.instructions = this.game.add.sprite(300, 150, 'instructions');
+    this.instructions.alpha = 0.5;
+
+    /* Debounce instructions menu */
+    this.debouncedToggleInstructions = this.debounce(this.toggleInstructions, 1000);
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
 
     /* Implement keyboard controls */
     this.cursors = this.game.input.keyboard.createCursorKeys();
-    // this.downPlatform = this.game.input.keyboard.createCursorKeys;
-    // this.upPlatform = this.game.input.keyboard.addKey(221);
     document.addEventListener('keydown', this.onKeyDown.bind(this));
     document.addEventListener('keyup', this.onKeyUp.bind(this));
   },
@@ -87,8 +100,23 @@ SublimeGame.LevelTwo.prototype = {
     /* on each update, resets player velocity to 0 */
     this.player.body.velocity.x = 0;
 
-    /* Setup platform movement */
-    if (this.keys[91] && this.keys[17] && this.keys[38]) { //CMD + CTL + up arrows
+    /* Sidways platform movement */
+    if (this.keys[219] && this.keys[91]) { // CMD + [
+      // move sidewaysLedge platform left 
+      this.prevX = this.sidewaysLedge.body.position.x;
+      this.sidewaysLedge.body.position.x = this.prevX - 20;
+      this.keys[219] = false; 
+      this.keys[91] = false;
+    } else if (this.keys[221] && this.keys[91]) { // CMD + ]
+      // move sidewaysLedge platform right
+      this.prevX = this.sidewaysLedge.body.position.x;
+      this.sidewaysLedge.body.position.x = this.prevX + 20;
+      this.keys[221] = false;
+      this.keys[91] = false;
+    }
+
+    /* Up/downplatform movement */
+    else if (this.keys[91] && this.keys[17] && this.keys[38]) { //CMD + CTL + up arrows
       /* Move platform up */
       this.prevY = this.floatingLedge.body.position.y;
       this.floatingLedge.body.position.y = this.prevY - 20;
@@ -134,6 +162,18 @@ SublimeGame.LevelTwo.prototype = {
       this.player.animations.stop();
       this.player.frame = 4;
     }
+
+    /* Toggle instructions menu */
+    if (this.keys[91] && this.keys[75]) { // if CMD K > CMD B are pressed
+      this.keys[91] = false;
+      this.keys[75] = false;
+      if (this.keys[66]) {
+        this.keys[91] = false;
+        this.keys[66] = false;
+        this.toggleInstructions(); // debounce
+      }
+    }
+
   },
 
   onKeyDown: function(e) {
@@ -144,6 +184,25 @@ SublimeGame.LevelTwo.prototype = {
   onKeyUp: function(e) {
     e.preventDefault();
     this.keys[e.which] = false;
+  },
+
+  debounce: function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  },
+
+  toggleInstructions: function() {
+    this.instructions.alpha = this.instructions.alpha === 0.5 ? 0 : 0.5;
   },
 
   quitGame: function(pointer) {

@@ -80,7 +80,12 @@ SublimeGame.LevelOne.prototype = {
     this.diamond.body.gravity.y = 300;
     this.diamond.body.collideWorldBounds = true;
 
+    /* Create instructions menu */
     this.instructions = this.game.add.sprite(300, 150, 'instructions');
+    this.instructions.alpha = 0.5;
+
+    /* Debounce instructions menu */
+    this.debouncedToggleInstructions = this.debounce(this.toggleInstructions, 1000);
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
@@ -135,8 +140,15 @@ SublimeGame.LevelOne.prototype = {
       this.player.frame = 4;
     }
 
-    if (this.spacebar.isDown) { // if CMD K > CMD B are pressed
-      this.toggleInstructions(); // debounce
+    /* Toggle instructions menu */
+    if (this.keys[91] && this.keys[75]) { // if CMD K > CMD B are pressed
+      this.keys[91] = false;
+      this.keys[75] = false;
+      if (this.keys[66]) {
+        this.keys[91] = false;
+        this.keys[66] = false;
+        this.toggleInstructions(); // debounce
+      }
     }
   },
 
@@ -150,8 +162,23 @@ SublimeGame.LevelOne.prototype = {
     this.keys[e.which] = false;
   },
 
+  debounce: function(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  },
+
   toggleInstructions: function() {
-    this.instructions.visible = this.instructions.visible ? false : true;
+    this.instructions.alpha = this.instructions.alpha === 0.5 ? 0 : 0.5;
   },
 
   quitGame: function(pointer) {
