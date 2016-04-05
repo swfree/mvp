@@ -146,7 +146,7 @@ SublimeGame.LevelThree.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Instructions:\nMoveleft\nMoveright');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Level 3:\nSplit Panes CMD+OPT+2\nChange pane focus CTL+SH+2');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';

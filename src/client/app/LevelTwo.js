@@ -102,13 +102,13 @@ SublimeGame.LevelTwo.prototype = {
       this.prevX = this.sidewaysLedge.body.position.x;
       this.sidewaysLedge.body.position.x = this.prevX - 20;
       this.keys[219] = false; 
-      this.keys[91] = false;
+      // this.keys[91] = false;
     } else if (this.keys[221] && this.keys[91]) { // CMD + ]
       // move sidewaysLedge platform right
       this.prevX = this.sidewaysLedge.body.position.x;
       this.sidewaysLedge.body.position.x = this.prevX + 20;
       this.keys[221] = false;
-      this.keys[91] = false;
+      // this.keys[91] = false;
     }
 
     /* Up/downplatform movement */
@@ -116,28 +116,28 @@ SublimeGame.LevelTwo.prototype = {
       /* Move platform up */
       this.prevY = this.floatingLedge.body.position.y;
       this.floatingLedge.body.position.y = this.prevY - 20;
-      this.keys[91] = false;
-      this.keys[17] = false;
+      // this.keys[91] = false;
+      // this.keys[17] = false;
       this.keys[38] = false;
     } else if (this.keys[91] && this.keys[17] && this.keys[40]) {//CMD + CTL +/down arrows
       /* Move platform down */
       this.prevY = this.floatingLedge.body.position.y;
       this.floatingLedge.body.position.y = this.prevY + 20;
-      this.keys[91] = false;
-      this.keys[17] = false;
+      // this.keys[91] = false;
+      // this.keys[17] = false;
       this.keys[40] = false;
     }
 
-    /* Setup multi key player movement */
-    else if (this.keys[18] && this.keys[37]) { // OPT: 18; Arrow Left: 37
-      /* Big move left */
-      this.prevX = this.player.body.position.x;
-      this.player.body.position.x = this.prevX - 20;
-    } else if (this.keys[18] && this.keys[39]) { // OPT: 18; Arrow Right: 39
-      /* Big move right */
-      this.prevX = this.player.body.position.x;
-      this.player.body.position.x = this.prevX + 20;
-    }
+    // /* Setup multi key player movement */
+    // else if (this.keys[18] && this.keys[37]) { // OPT: 18; Arrow Left: 37
+    //   /* Big move left */
+    //   this.prevX = this.player.body.position.x;
+    //   this.player.body.position.x = this.prevX - 20;
+    // } else if (this.keys[18] && this.keys[39]) { // OPT: 18; Arrow Right: 39
+    //   /* Big move right */
+    //   this.prevX = this.player.body.position.x;
+    //   this.player.body.position.x = this.prevX + 20;
+    // }
 
     /* Setup single key player movement */
     else if (this.cursors.left.isDown) {
@@ -191,7 +191,7 @@ SublimeGame.LevelTwo.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Instructions:\nMoveleft\nMoveright');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Level 2:\nPlatform Up/Down- CMD+CTL+Arrows\nPlatform Sideways- CMD+[ ]');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';

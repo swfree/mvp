@@ -167,7 +167,7 @@ SublimeGame.LevelOne.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Instructions:\nMoveleft\nMoveright');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Level 1:\nArrows\nOPT + Arrows');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';
