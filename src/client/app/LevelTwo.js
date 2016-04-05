@@ -34,29 +34,71 @@ SublimeGame.LevelTwo = function(game) {
 
 SublimeGame.LevelTwo.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 1240, 600);
+    this.world.setBounds(0, 0, 1240, 640);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     /* Create platforms */
     this.platforms = this.add.group();
     this.platforms.enableBody = true;
-    this.ground = this.platforms.create(0, this.game.world.height - 64, 'ground');
-    this.ground.scale.setTo(0.7, 2);
+    this.ground = this.platforms.create(0, this.game.world.height - 90, 'ground');
+    this.ground.scale.setTo(0.7, 3);
     this.ground.body.immovable = true;
 
     this.floatingLedge = this.platforms.create(280, 350, 'float');
     this.floatingLedge.scale.setTo(0.5, 0.5);
     this.floatingLedge.body.immovable = true;
 
-    this.fixedLedge = this.platforms.create(480, this.game.world.height - 40, 'ground');
-    this.fixedLedge.scale.setTo(0.8, 1);
+    // /* START STUCK PLAYER */
+    // // INSIDE CREATE:
+    // game.physics.arcade.enable(this);
+    // this.anchor.x = 0.5;
+    // this.body.customSeparateX = true;
+    // this.body.customSeparateY = true;
+    // this.body.allowGravity = false;
+    // this.body.immovable = true;
+    // this.playerLocked = false;
+
+    // // INSIDE UPDATE:
+    // this.physics.arcade.collide(this.player, this.clouds, this.customSep, null, this);
+    // //  Do this AFTER the collide check, or we won't have blocked/touching set
+    // var standing = this.player.body.blocked.down || this.player.body.touching.down || this.locked;
+    // if (this.locked) {
+    //   this.checkLock();
+    // }
+    // customSep: function (player, platform) {
+    //   if (!this.locked && player.body.velocity.y > 0) {
+    //     this.locked = true;
+    //     this.lockedTo = platform;
+    //     platform.playerLocked = true;
+
+    //     player.body.velocity.y = 0;
+    //   }
+    // },
+
+    // checkLock: function () {
+    //   this.player.body.velocity.y = 0;
+    //   //  If the player has walked off either side of the platform then they're no longer locked to it
+    //   if (this.player.body.right < this.lockedTo.body.x || this.player.body.x > this.lockedTo.body.right) {
+    //     this.cancelLock();
+    //   }
+    // },
+
+    // cancelLock: function () {
+    //   this.wasLocked = true;
+    //   this.locked = false;
+    // },
+    // /* END STUCK PLAYER */
+
+    this.fixedLedge = this.platforms.create(480, this.game.world.height - 64, 'ground');
+    this.fixedLedge.scale.setTo(0.8, 2);
     this.fixedLedge.body.immovable = true;
 
-    this.sidewaysLedge = this.platforms.create(800, this.game.world.height - 40, 'sideways');
+    this.sidewaysLedge = this.platforms.create(800, this.game.world.height - 64, 'sideways');
     this.sidewaysLedge.scale.setTo(0.5, 0.5);
     this.sidewaysLedge.body.immovable = true;
 
-    this.fixedLedge = this.platforms.create(this.game.world.width - 100, this.game.world.height - 40, 'ground');
+    this.fixedLedge = this.platforms.create(this.game.world.width - 100, this.game.world.height - 64, 'ground');
+    this.fixedLedge.scale.setTo(0.5, 2);
     this.fixedLedge.body.immovable = true;
 
     /* Create player */
@@ -129,17 +171,6 @@ SublimeGame.LevelTwo.prototype = {
       this.keys[40] = false;
     }
 
-    // /* Setup multi key player movement */
-    // else if (this.keys[18] && this.keys[37]) { // OPT: 18; Arrow Left: 37
-    //   /* Big move left */
-    //   this.prevX = this.player.body.position.x;
-    //   this.player.body.position.x = this.prevX - 20;
-    // } else if (this.keys[18] && this.keys[39]) { // OPT: 18; Arrow Right: 39
-    //   /* Big move right */
-    //   this.prevX = this.player.body.position.x;
-    //   this.player.body.position.x = this.prevX + 20;
-    // }
-
     /* Setup single key player movement */
     else if (this.cursors.left.isDown) {
       /* Moves left */
@@ -149,13 +180,7 @@ SublimeGame.LevelTwo.prototype = {
       /* Moves right */
       this.player.body.velocity.x = 150;
       this.player.animations.play('right');
-    }  
-    // FIX BUG: disabled jump because I cannot prevent the jump when the floatingPlatform moves up
-    // else if (!this.keys[91] && !this.keys[17] && this.cursors.up.isDown && this.player.body.touching.down) {
-    //   /* Jump */
-    //   this.player.body.velocity.y = -150;
-    // } 
-    else { /* Stands still */
+    } else { /* Stands still */
       this.player.animations.stop();
       this.player.frame = 4;
     }

@@ -34,7 +34,7 @@ SublimeGame.LevelThree = function(game) {
 
 SublimeGame.LevelThree.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 1000, 600);
+    this.world.setBounds(0, 0, 1240, 600);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     /* Create platforms */
@@ -45,7 +45,7 @@ SublimeGame.LevelThree.prototype = {
     this.ground.body.immovable = true;
 
     /* Create wall */
-    this.wall = this.platforms.create(this.game.world.centerX + 95, 360, 'wall');
+    this.wall = this.platforms.create(this.game.world.centerX - 32, 360, 'wall');
     this.wall.scale.setTo(1, 0.42);
     this.wall.body.immovable = true;
 
@@ -64,7 +64,7 @@ SublimeGame.LevelThree.prototype = {
     this.outline1.alpha = 0.3;
 
     /* Load finish line */
-    this.diamond = this.game.add.sprite(this.game.world.width-30, this.game.world.height-175, 'diamond');
+    this.diamond = this.game.add.sprite(this.game.world.width-150, this.game.world.height-175, 'diamond');
     this.game.physics.arcade.enable(this.diamond);
     this.diamond.body.gravity.y = 300;
     this.diamond.body.collideWorldBounds = true;

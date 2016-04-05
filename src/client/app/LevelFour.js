@@ -35,7 +35,7 @@ SublimeGame.LevelFour = function(game) {
 
 SublimeGame.LevelFour.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 800, 600);
+    this.world.setBounds(0, 0, 1240, 640);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     /* Create platforms */
@@ -232,7 +232,7 @@ SublimeGame.LevelFour.prototype = {
       this.coin3.destroy();
       this.coin4.destroy();
       /* Load finish line */
-      this.diamond = this.game.add.sprite(this.game.world.width-30, this.game.world.height-175, 'diamond');
+      this.diamond = this.game.add.sprite(this.game.world.width-300, this.game.world.height-175, 'diamond');
       this.game.physics.arcade.enable(this.diamond);
       this.diamond.body.gravity.y = 300;
       this.diamond.body.collideWorldBounds = true;
@@ -249,7 +249,7 @@ SublimeGame.LevelFour.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(500, this.game.world.centerY - 100, 'Level 4:\nSelect CMD+D\nDelete to show exit\nDont collect the frozen coin!');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 4:\nSelect CMD+D\nDelete to show exit\nDont collect the frozen coin!');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';
