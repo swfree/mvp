@@ -45,8 +45,8 @@ SublimeGame.LevelThree.prototype = {
     this.ground.body.immovable = true;
 
     /* Create wall */
-    this.wall = this.platforms.create(this.game.world.centerX + 95, 400, 'ground');
-    this.wall.scale.setTo(0.1, 6);
+    this.wall = this.platforms.create(this.game.world.centerX + 95, 360, 'wall');
+    this.wall.scale.setTo(1, 0.42);
     this.wall.body.immovable = true;
 
     /* Create player */
@@ -127,12 +127,14 @@ SublimeGame.LevelThree.prototype = {
 
     /* Toggle instructions menu */
     if (this.keys[91] && this.keys[75]) { // if CMD K > CMD B are pressed
-      this.keys[91] = false;
-      this.keys[75] = false;
+      // this.keys[91] = false;
+      // this.keys[75] = false;
       if (this.keys[66]) {
-        this.keys[91] = false;
+        // this.keys[91] = false;
         this.keys[66] = false;
+        this.keys[75] = false;
         this.toggleInstructions(); // debounce
+        console.log('toggle instructions');
       }
     }
 

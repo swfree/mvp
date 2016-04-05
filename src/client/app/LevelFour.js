@@ -150,12 +150,14 @@ SublimeGame.LevelFour.prototype = {
 
     /* Toggle instructions menu */
     if (this.keys[91] && this.keys[75]) { // if CMD K > CMD B are pressed
-      this.keys[91] = false;
-      this.keys[75] = false;
+      // this.keys[91] = false;
+      // this.keys[75] = false;
       if (this.keys[66]) {
-        this.keys[91] = false;
+        // this.keys[91] = false;
         this.keys[66] = false;
+        this.keys[75] = false;
         this.toggleInstructions(); // debounce
+        console.log('toggle instructions');
       }
     }
 

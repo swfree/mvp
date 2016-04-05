@@ -34,7 +34,7 @@ SublimeGame.LevelOne = function(game) {
 
 SublimeGame.LevelOne.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 2000, 640);
+    this.world.setBounds(0, 0, 1240, 640);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
 

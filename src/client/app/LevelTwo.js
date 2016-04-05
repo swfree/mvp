@@ -34,24 +34,25 @@ SublimeGame.LevelTwo = function(game) {
 
 SublimeGame.LevelTwo.prototype = {
   create: function() {
-    this.world.setBounds(0, 0, 1500, 600);
+    this.world.setBounds(0, 0, 1240, 600);
     this.physics.startSystem(Phaser.Physics.ARCADE);
 
     /* Create platforms */
     this.platforms = this.add.group();
     this.platforms.enableBody = true;
     this.ground = this.platforms.create(0, this.game.world.height - 64, 'ground');
-    this.ground.scale.setTo(1, 2);
+    this.ground.scale.setTo(0.7, 2);
     this.ground.body.immovable = true;
 
-    this.floatingLedge = this.platforms.create(400, 350, 'ground');
+    this.floatingLedge = this.platforms.create(280, 350, 'float');
     this.floatingLedge.scale.setTo(0.5, 0.5);
     this.floatingLedge.body.immovable = true;
 
-    this.fixedLedge = this.platforms.create(600, this.game.world.height - 40, 'ground');
+    this.fixedLedge = this.platforms.create(480, this.game.world.height - 40, 'ground');
+    this.fixedLedge.scale.setTo(0.8, 1);
     this.fixedLedge.body.immovable = true;
 
-    this.sidewaysLedge = this.platforms.create(1000, this.game.world.height - 40, 'ground');
+    this.sidewaysLedge = this.platforms.create(800, this.game.world.height - 40, 'sideways');
     this.sidewaysLedge.scale.setTo(0.5, 0.5);
     this.sidewaysLedge.body.immovable = true;
 
@@ -161,12 +162,14 @@ SublimeGame.LevelTwo.prototype = {
 
     /* Toggle instructions menu */
     if (this.keys[91] && this.keys[75]) { // if CMD K > CMD B are pressed
-      this.keys[91] = false;
-      this.keys[75] = false;
+      // this.keys[91] = false;
+      // this.keys[75] = false;
       if (this.keys[66]) {
-        this.keys[91] = false;
+        // this.keys[91] = false;
         this.keys[66] = false;
+        this.keys[75] = false;
         this.toggleInstructions(); // debounce
+        console.log('toggle instructions');
       }
     }
 
