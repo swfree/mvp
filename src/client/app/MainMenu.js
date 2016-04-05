@@ -28,6 +28,6 @@ SublimeGame.MainMenu.prototype = {
     // unecessary ?
   },
   startGame: function(pointer) {
-    this.state.start('LevelThree');
+    this.state.start('LevelOne');
   }
 }
