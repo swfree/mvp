@@ -269,7 +269,7 @@ SublimeGame.LevelFour.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 4 - World Selections:\n\nCMD + D: select same words\nCMD + K: skip words\n(Hint: don\'t collect the frozen coin!)');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 4 - World Selections\n\nControls...               Sublime        ~        Shortcut Strut\nCMD + D...  select same words  ~  select coins\nCMD + K...    skip words    ~    skip coins\nBackspace...  delete selection  ~  collect coins/unlock exit\n(Hint: don\'t collect the frozen coin!)');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';

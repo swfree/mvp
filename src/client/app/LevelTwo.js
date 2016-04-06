@@ -219,7 +219,10 @@ SublimeGame.LevelTwo.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 2 - Line Movements:\n\nCMD + CTRL + Arrows: move line up & down\nCMD + [ or ]: indent line left or right');
+    // this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 2 - Line Movements:\n\nCMD + CTRL + Arrows: move line up & down\nCMD + [ or ]: indent line left or right');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 2 - Line Movements\n\nControls...               Sublime        ~        Shortcut Strut\nCMD + CTRL + Arrows... move line up/down ~ move platform up/down\nCMD + [ or ]...   indent line left or right   ~   move platform left/right\nCMD + K / B...    toggle sidebar ~ toggle instructions');
+     
+
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';

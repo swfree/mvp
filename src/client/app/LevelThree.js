@@ -179,7 +179,7 @@ SublimeGame.LevelThree.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 3 - Panes:\n\nCMD + OPT + #: split into panes\nCTRL + SHIFT + #: change pane focus');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 3 - Panes\n\nControls...               Sublime        ~        Shortcut Strut\nCMD + OPT + 2...   split into 2 panes   ~   split into 2 frames\nCTRL + SHIFT + 2...   change focus to 2nd pane   ~   transport to 2nd frame');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';

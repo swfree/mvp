@@ -191,7 +191,7 @@ SublimeGame.LevelOne.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 1 - Letter & Word Navigation\n\nArrows: basic letter movement\nOPTION + Arrows: skip words');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 1 - Letter & Word Navigation\n\nControls...               Sublime        ~        Shortcut Strut\n Arrows...  basic letter movement ~ player movement\nOPTION + Arrows...         skip words  ~  speed boost\nCMD + K / B...    toggle sidebar ~ toggle instructions');
     // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';
