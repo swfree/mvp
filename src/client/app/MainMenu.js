@@ -17,11 +17,11 @@ SublimeGame.MainMenu.prototype = {
     this.title.fontWeight = 'bold';
 
     //  Stroke color and thickness
-    this.title.stroke = '#000000';
-    this.title.strokeThickness = 6;
-    this.title.fill = '#43d637';
+    this.title.fill = '#e57254';
 
-    this.playButton = this.add.button(this.game.world.centerX, this.game.world.centerY + 50, 'playButton', this.startGame, this, 2, 1, 0);
+    this.game.stage.backgroundColor = '#252525';
+
+    this.playButton = this.add.button(this.game.world.centerX - 10, this.game.world.centerY + 50, 'playButton', this.startGame, this, 2, 1, 0);
   },
 
   update: function() {

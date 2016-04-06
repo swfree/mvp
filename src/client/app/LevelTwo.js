@@ -79,7 +79,7 @@ SublimeGame.LevelTwo.prototype = {
     this.addText();
     this.addRestart();
     this.addTimer();
-    
+
 
     /* Add camera follow */
     this.game.camera.follow(this.player);
@@ -206,10 +206,7 @@ SublimeGame.LevelTwo.prototype = {
     this.restart = this.game.add.text(this.game.world.width-230, 40, "RESTART LEVEL", { 
       font: "15px Arial Black", 
       fontWeight: "bold", 
-      fill: "#43d637", 
-      stroke: "#000000", 
-      strokeThickness: "6", 
-      align: "center" 
+      fill: "#d6dbde"
     });
 
     this.restart.inputEnabled = true;
@@ -222,20 +219,17 @@ SublimeGame.LevelTwo.prototype = {
   },
 
   addText: function() {
-    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 50, 'Level 2:\nPlatform Up/Down- CMD+CTL+Arrows\nPlatform Sideways- CMD+[ ]');
+    this.levelInstructions = this.game.add.text(620, this.game.world.centerY - 100, 'Level 2 - Line Movements:\n\nCMD + CTRL + Arrows: move line up & down\nCMD + [ or ]: indent line left or right');
      // Center align
     this.levelInstructions.anchor.set(0.5);
     this.levelInstructions.align = 'center';
 
     //  Font style
-    this.levelInstructions.font = 'Arial Black';
+    this.levelInstructions.font = 'Arial';
     this.levelInstructions.fontSize = 20;
-    this.levelInstructions.fontWeight = 'bold';
 
     //  Stroke color and thickness
-    this.levelInstructions.stroke = '#000000';
-    this.levelInstructions.strokeThickness = 6;
-    this.levelInstructions.fill = '#43d637';
+    this.levelInstructions.fill = '#e57254';
   },
 
   addTimer: function() {
@@ -243,7 +237,7 @@ SublimeGame.LevelTwo.prototype = {
     this.timer = this.game.add.text(this.game.world.width-230, 65, "Seconds Elapsed: " + this.counter, { 
       font: "15px Arial Black", 
       fontWeight: "bold", 
-      fill: "#43d637", 
+      fill: "#d6dbde", 
     });
     this.interval = setInterval(this.updateTimer.bind(this), 1000);
   },
